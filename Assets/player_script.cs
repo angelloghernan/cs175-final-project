@@ -78,6 +78,9 @@ public class player_script : MonoBehaviour
         if (collision.gameObject.tag == "ground") {
             is_jumping = false;
             is_fast_falling = false;
+        } else if (collision.gameObject.tag == "obstacle") {
+            // player gets a game over
+            GetComponent<Renderer>().material.color = Color.red;
         }
     }
 }
