@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 800256255}
   m_Layer: 0
   m_Name: scrolling_world
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -434,7 +434,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   square: 1
-  jump_force: 1
+  jump_force: 5
+  is_jumping: 0
+  moving: 0
 --- !u!65 &2046844150
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -446,8 +448,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.6397455, z: 1}
-  m_Center: {x: 0, y: 0.082209826, z: 0}
+  m_Size: {x: 1, y: 1.8086479, z: 1}
+  m_Center: {x: 0, y: -0.0022412837, z: 0}
 --- !u!23 &2046844151
 MeshRenderer:
   m_ObjectHideFlags: 0

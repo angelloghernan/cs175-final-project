@@ -13,6 +13,7 @@ public class player_script : MonoBehaviour
 
     Rigidbody rb;
     public bool is_jumping = false;
+    public bool fast_falling = false;
     public bool moving = false;
     private Vector3 start_point;
     private Vector3 end_point;
@@ -46,10 +47,12 @@ public class player_script : MonoBehaviour
             Vector3 start = new Vector3(start_point.x, transform.position.y, start_point.z);
             Vector3 end = new Vector3(end_point.x, transform.position.y, end_point.z);
             transform.position = Vector3.Lerp(start, end, t);
-            return;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && square > 0) {
+        if (!fast_falling && is_jumping && Input.GetKeyDown(KeyCode.DownArrow)) {
+            rb.AddForce(new Vector3(0, -jump_force * 2, 0), ForceMode.Impulse);
+            fast_falling = true;
+        } else if (Input.GetKeyDown(KeyCode.LeftArrow) && square > 0) {
             move_timer = 0.0f;
             moving = true;
             start_point = transform.position;
@@ -73,6 +76,7 @@ public class player_script : MonoBehaviour
         // Enable jumping when the player touches the ground
         if (collision.gameObject.tag == "ground") {
             is_jumping = false;
+            fast_falling = false;
         }
     }
 }
