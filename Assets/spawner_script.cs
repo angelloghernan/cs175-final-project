@@ -8,13 +8,13 @@ public class spawner_script : MonoBehaviour
     public List<GameObject> other_objects;
     private List<float> spawn_delays = new List<float> {1.0f, 1.0f, 1.0f};
     private List<float> spawn_timers = new List<float> {0.0f, 0.0f, 0.0f};
-    private List<Material> object_materials = new List<Material>();
+    private List<Renderer> object_renderers = new List<Renderer>();
     public float spawn_delay_max = 100.0f;
     private float x_curve = 0.0f;
     private float y_curve = 0.0f;
     public float x_curve_delta = 0.00001f;
     public float y_curve_delta = 0.00001f;
-    private int curve_frame = 0;
+    private long curve_frame = 0;
     
     void gen_new_spawn_delays(int i) {
         spawn_delays[i] = Random.Range(0.25f, spawn_delay_max);
@@ -24,13 +24,13 @@ public class spawner_script : MonoBehaviour
     void Start()
     {
         for (var i = 0; i < game_objects.Count; ++i) {
-            obstacle_script script = game_objects[i].GetComponent<obstacle_script>();
             gen_new_spawn_delays(i);
-            object_materials.Add(game_objects[i].GetComponent<Renderer>().material);
+            object_renderers.Add(game_objects[i].GetComponent<Renderer>());
+            object_renderers[i].material.color = Color.red;
         }
 
         for (var i = 0; i < other_objects.Count; ++i) {
-            object_materials.Add(other_objects[i].GetComponent<Renderer>().material);
+            object_renderers.Add(other_objects[i].GetComponent<Renderer>());
         }
     }
 
@@ -38,27 +38,27 @@ public class spawner_script : MonoBehaviour
     void Update()
     {
         ++curve_frame;
-        if (curve_frame > 20) {
-            curve_frame = 0;
+        if (curve_frame % 20 == 0) {
             x_curve += x_curve_delta;
-            y_curve += y_curve_delta;
 
             if (x_curve >= 0.01f || x_curve <= -0.01f) {
                 x_curve_delta = -x_curve_delta;
             }
-            
-            if (y_curve >= 0.01f || y_curve <= 0.00f) {
+
+            for (int i = 0; i < object_renderers.Count; ++i) {
+                object_renderers[i].material.SetFloat("_XCurve", x_curve);
+            }
+        }
+
+        if (curve_frame % 30 == 0) {
+            y_curve += y_curve_delta;
+
+            if (y_curve >= 0.002f || y_curve < 0.00f) {
                 y_curve_delta = -y_curve_delta;
             }
 
-            for (int i = 0; i < game_objects.Count; ++i) {
-                game_objects[i].GetComponent<Renderer>().material.SetFloat("_XCurve", x_curve);
-                game_objects[i].GetComponent<Renderer>().material.SetFloat("_YCurve", y_curve);
-            }
-
-            for (int i = 0; i < other_objects.Count; ++i) {
-                other_objects[i].GetComponent<Renderer>().material.SetFloat("_XCurve", x_curve);
-                other_objects[i].GetComponent<Renderer>().material.SetFloat("_YCurve", y_curve);
+            for (int i = 0; i < object_renderers.Count; ++i) {
+                object_renderers[i].material.SetFloat("_YCurve", y_curve);
             }
         }
 
@@ -68,8 +68,8 @@ public class spawner_script : MonoBehaviour
             if (spawn_timers[i] >= spawn_delays[i]) {
                 spawn_timers[i] = 0.0f;
                 var new_obstacle = Instantiate(game_objects[i], 
-                                               new Vector3(game_objects[i].transform.position.x,
-                                                           game_objects[i].transform.position.y,
+                                               new Vector3(game_objects[i].transform.position.x - x_curve,
+                                                           game_objects[i].transform.position.y - y_curve,
                                                            game_objects[i].transform.position.z), 
                                                Quaternion.Euler(270.0f, 0.0f, 0.0f));
 
