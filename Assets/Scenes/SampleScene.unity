@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 4
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.12797475, g: 0.15854669, b: 0.2098496, a: 1}
+  m_IndirectSpecularColor: {r: 262.0923, g: 324.7036, b: 429.77197, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -202,7 +202,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 25aa78f8fe30042849d30e2844d27636, type: 2}
+  - {fileID: 2100000, guid: 0754143fb482a34a1bbe737cc0835a7c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -888,7 +888,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 25aa78f8fe30042849d30e2844d27636, type: 2}
+  - {fileID: 2100000, guid: 0754143fb482a34a1bbe737cc0835a7c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1410,7 +1410,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 25aa78f8fe30042849d30e2844d27636, type: 2}
+  - {fileID: 2100000, guid: 0754143fb482a34a1bbe737cc0835a7c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2123,7 +2123,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e95f585ac1dcc4183b18ecbbd2366235, type: 2}
+  - {fileID: 2100000, guid: 0754143fb482a34a1bbe737cc0835a7c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2718,7 +2718,12 @@ MonoBehaviour:
   - {fileID: 537364499}
   - {fileID: 391048755}
   - {fileID: 178172148}
+  other_objects:
+  - {fileID: 2046844148}
+  - {fileID: 800256254}
   spawn_delay_max: 2
+  x_curve_delta: 0.0001
+  y_curve_delta: 0.0001
 --- !u!43 &2033542931
 Mesh:
   m_ObjectHideFlags: 0
@@ -2956,7 +2961,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 379ea184a4b6b4f91a55996b2a0e6e1d, type: 2}
+  - {fileID: 2100000, guid: 0754143fb482a34a1bbe737cc0835a7c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
