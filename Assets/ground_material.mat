@@ -175,7 +175,7 @@ Material:
     - _ConservativeDepthOffsetEnable: 0
     - _CullMode: 0
     - _CullModeForward: 0
-    - _Curve: 0.005
+    - _Curve: 0.001
     - _Cutoff: 0.5
     - _DepthOffsetEnable: 0
     - _DetailNormalMapScale: 1
