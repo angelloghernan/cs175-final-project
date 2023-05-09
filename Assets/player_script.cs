@@ -12,18 +12,22 @@ public class player_script : MonoBehaviour
 
 
     Rigidbody rb;
+    BoxCollider box_collider;
     public bool is_jumping = false;
     public bool is_fast_falling = false;
     public bool moving = false;
+    public bool ducking = false;
     private Vector3[] end_points = new Vector3[3];
     private Vector3 start_point;
     private float move_timer = 0.0f;
+    private float duck_timer = 0.0f;
     private float time_to_reach_end = 0.25f;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        box_collider = GetComponent<BoxCollider>();
         is_jumping = false;
         end_points[0] = new Vector3(transform.position.x - 1.0f, 0.0f, transform.position.z);
         end_points[1] = new Vector3(transform.position.x, 0.0f, transform.position.z);
@@ -42,6 +46,7 @@ public class player_script : MonoBehaviour
     void Update()
     {
         move_timer += Time.deltaTime;
+        duck_timer += Time.deltaTime;
 
         if (moving && move_timer >= time_to_reach_end) {
             moving = false;
@@ -54,16 +59,36 @@ public class player_script : MonoBehaviour
             transform.position = Vector3.Lerp(start, end, t);
         }
 
-        if (!is_fast_falling && is_jumping && Input.GetKeyDown(KeyCode.DownArrow)) {
+        if (ducking && duck_timer >= 2.0 / speed) {
+            ducking = false;
+            transform.localScale = new Vector3(transform.localScale.x,
+                                               transform.localScale.y * 2.0f,
+                                               transform.localScale.z);
+            box_collider.size = new Vector3(box_collider.size.x,
+                                            box_collider.size.y * 2.0f,
+                                            box_collider.size.z);
+        }
+
+        if (!ducking && !is_jumping && Input.GetKeyDown(KeyCode.DownArrow)) {
+            ducking = true;
+            duck_timer = 0;
+            transform.localScale = new Vector3(transform.localScale.x,
+                                               transform.localScale.y / 2.0f,
+                                               transform.localScale.z);
+            box_collider.size = new Vector3(box_collider.size.x,
+                                            box_collider.size.y / 2.0f,
+                                            box_collider.size.z);
+        } else if (!ducking && !is_fast_falling && 
+            is_jumping && Input.GetKeyDown(KeyCode.DownArrow)) {
             rb.AddForce(new Vector3(0.0f, -jump_force * 1.5f, 0.0f), ForceMode.Impulse);
             is_fast_falling = true;
-        } else if (Input.GetKeyDown(KeyCode.LeftArrow) && square > 0) {
+        } else if (!ducking && Input.GetKeyDown(KeyCode.LeftArrow) && square > 0) {
             move_timer = 0.0f;
             moving = true;
             start_point = transform.position;
             --square;
             time_to_reach_end = Mathf.Abs(end_points[square].x - start_point.x) / speed;
-        } else if (Input.GetKeyDown(KeyCode.RightArrow) && square < 2) {
+        } else if (!ducking && Input.GetKeyDown(KeyCode.RightArrow) && square < 2) {
             move_timer = 0.0f;
             moving = true;
             start_point = transform.position;
@@ -79,7 +104,7 @@ public class player_script : MonoBehaviour
             is_jumping = false;
             is_fast_falling = false;
         } else if (collision.gameObject.tag == "obstacle") {
-            // player gets a game over
+            // player gets a game over...
             GetComponent<Renderer>().material.color = Color.red;
         }
     }

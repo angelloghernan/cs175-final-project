@@ -4,28 +4,42 @@ using UnityEngine;
 
 public class spawner_script : MonoBehaviour
 {
-    public GameObject game_object;
-    public float spawn_delay = 1.0f;
-    private float spawn_timer = 0.0f;
+    public List<GameObject> game_objects;
+    private List<float> spawn_delays = new List<float> {1.0f, 1.0f, 1.0f};
+    private List<float> spawn_timers = new List<float> {0.0f, 0.0f, 0.0f};
+    public float spawn_delay_max = 100.0f;
+    
+    void gen_new_spawn_delays(int i) {
+        spawn_delays[i] = Random.Range(0.25f, spawn_delay_max);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        for (var i = 0; i < game_objects.Count; ++i) {
+            gen_new_spawn_delays(i);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        spawn_timer += Time.deltaTime;
+        for (int i = 0; i < game_objects.Count; ++i) {
+            spawn_timers[i] += Time.deltaTime;
 
-        if (spawn_timer >= spawn_delay) {
-            spawn_timer = 0.0f;
-            var new_obstacle = Instantiate(game_object, 
-                                           new Vector3(game_object.transform.position.x,
-                                                       game_object.transform.position.y,
-                                                       game_object.transform.position.z), 
-                                           Quaternion.identity);
+            if (spawn_timers[i] >= spawn_delays[i]) {
+                spawn_timers[i] = 0.0f;
+                var new_obstacle = Instantiate(game_objects[i], 
+                                               new Vector3(game_objects[i].transform.position.x,
+                                                           game_objects[i].transform.position.y,
+                                                           game_objects[i].transform.position.z), 
+                                               Quaternion.Euler(270.0f, 0.0f, 0.0f));
 
-            new_obstacle.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, -1000.0f));
+                new_obstacle.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, -1000.0f));
+                new_obstacle.GetComponent<MeshCollider>().enabled = true;
+                new_obstacle.GetComponent<Renderer>().enabled = true;
+                gen_new_spawn_delays(i);
+            }
         }
     }
 }
