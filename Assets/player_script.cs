@@ -82,13 +82,15 @@ public class player_script : MonoBehaviour
             is_jumping && Input.GetKeyDown(KeyCode.DownArrow)) {
             rb.AddForce(new Vector3(0.0f, -jump_force * 1.5f, 0.0f), ForceMode.Impulse);
             is_fast_falling = true;
-        } else if (!ducking && Input.GetKeyDown(KeyCode.LeftArrow) && square > 0) {
+        } 
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && square > 0) {
             move_timer = 0.0f;
             moving = true;
             start_point = transform.position;
             --square;
             time_to_reach_end = Mathf.Abs(end_points[square].x - start_point.x) / speed;
-        } else if (!ducking && Input.GetKeyDown(KeyCode.RightArrow) && square < 2) {
+        } else if (Input.GetKeyDown(KeyCode.RightArrow) && square < 2) {
             move_timer = 0.0f;
             moving = true;
             start_point = transform.position;

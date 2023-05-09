@@ -17,6 +17,7 @@ public class spawner_script : MonoBehaviour
     void Start()
     {
         for (var i = 0; i < game_objects.Count; ++i) {
+            obstacle_script script = game_objects[i].GetComponent<obstacle_script>();
             gen_new_spawn_delays(i);
         }
     }
@@ -38,6 +39,7 @@ public class spawner_script : MonoBehaviour
                 new_obstacle.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, -1000.0f));
                 new_obstacle.GetComponent<MeshCollider>().enabled = true;
                 new_obstacle.GetComponent<Renderer>().enabled = true;
+                new_obstacle.GetComponent<obstacle_script>().speed = 25.0f;
                 gen_new_spawn_delays(i);
             }
         }
