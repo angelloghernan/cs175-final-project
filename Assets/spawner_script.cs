@@ -6,8 +6,9 @@ public class spawner_script : MonoBehaviour
 {
     public List<GameObject> game_objects;
     public List<GameObject> other_objects;
-    private List<float> spawn_delays = new List<float> {1.0f, 1.0f, 1.0f};
-    private List<float> spawn_timers = new List<float> {0.0f, 0.0f, 0.0f};
+    private List<float> spawn_delays = new List<float> {1.0f, 1.0f, 1.0f, 1.0f};
+    private List<float> spawn_timers = new List<float> {0.0f, 0.0f, 0.0f, 0.0f};
+    private List<float> object_y_rotation = new List<float> {270.0f, 270.0f, 270.0f, 0.0f};
     private List<Renderer> object_renderers = new List<Renderer>();
     public float spawn_delay_max = 100.0f;
     private float x_curve = 0.0f;
@@ -17,7 +18,7 @@ public class spawner_script : MonoBehaviour
     private long curve_frame = 0;
     
     void gen_new_spawn_delays(int i) {
-        spawn_delays[i] = Random.Range(0.25f, spawn_delay_max);
+        spawn_delays[i] = Random.Range(1.0f, spawn_delay_max);
     }
 
     // Start is called before the first frame update
@@ -71,7 +72,7 @@ public class spawner_script : MonoBehaviour
                                                new Vector3(game_objects[i].transform.position.x - x_curve,
                                                            game_objects[i].transform.position.y - y_curve,
                                                            game_objects[i].transform.position.z), 
-                                               Quaternion.Euler(270.0f, 0.0f, 0.0f));
+                                               Quaternion.Euler(object_y_rotation[i], 0.0f, 0.0f));
 
                 new_obstacle.GetComponent<MeshCollider>().enabled = true;
                 new_obstacle.GetComponent<Renderer>().enabled = true;

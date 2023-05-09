@@ -32,6 +32,8 @@ public class player_script : MonoBehaviour
         end_points[0] = new Vector3(transform.position.x - 1.0f, 0.0f, transform.position.z);
         end_points[1] = new Vector3(transform.position.x, 0.0f, transform.position.z);
         end_points[2] = new Vector3(transform.position.x + 1.0f, 0.0f, transform.position.z);
+
+        GetComponent<Renderer>().material.color = Color.green;
     }
 
     void FixedUpdate()

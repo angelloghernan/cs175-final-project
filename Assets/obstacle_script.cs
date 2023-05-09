@@ -14,7 +14,7 @@ public class obstacle_script : MonoBehaviour
     void Start()
     {
         start_point = transform.position;
-        time_to_reach_end = Mathf.Abs(player.transform.position.z - 5.0f - start_point.z) / speed;
+        time_to_reach_end = Mathf.Abs(player.transform.position.z - 20.0f - start_point.z) / speed;
     }
 
     // Update is called once per frame
@@ -30,7 +30,7 @@ public class obstacle_script : MonoBehaviour
         transform.position = Vector3.Lerp(start_point, 
                                           new Vector3(start_point.x, 
                                                       start_point.y, 
-                                                      player.transform.position.z - 5.0f), 
+                                                      player.transform.position.z - 20.0f), 
                                           t);
     }
 }
