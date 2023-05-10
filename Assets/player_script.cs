@@ -121,7 +121,6 @@ public class player_script : MonoBehaviour
 
     void OnCollisionEnter(Collision collision) {
         // Enable jumping when the player touches the ground
-        Debug.Log("Collision");
         if (collision.gameObject.tag == "ground") {
             is_jumping = false;
             is_fast_falling = false;
@@ -132,23 +131,20 @@ public class player_script : MonoBehaviour
             panning_camera_timer = 0.0f;
             is_panning_camera = true;
             is_panning_camera_back = false;
-            Debug.Log("collision with arch trigger");
+        } else if (collision.gameObject.tag == "arch_end") {
+            panning_camera_timer = 0.0f;
+            is_panning_camera = false;
+            is_panning_camera_back = true;
         }
     }
 
     void update_camera() {
         panning_camera_timer += Time.deltaTime;
 
-        if (is_panning_camera && panning_camera_timer > panning_camera_timer_end) {
+        if (panning_camera_timer > panning_camera_timer_end) {
             Debug.Log("ended");
             is_panning_camera = false;
-            is_panning_camera_back = true;
-            panning_camera_timer = 0.0f;
-        }
-
-        if (is_panning_camera_back && panning_camera_timer > panning_camera_timer_end) {
             is_panning_camera_back = false;
-            is_panning_camera = false;
             panning_camera_timer = 0.0f;
         }
 
