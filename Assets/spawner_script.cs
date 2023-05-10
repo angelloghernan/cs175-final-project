@@ -74,7 +74,7 @@ public class spawner_script : MonoBehaviour
                                                            game_objects[i].transform.position.z), 
                                                Quaternion.Euler(object_y_rotation[i], 0.0f, 0.0f));
 
-                new_obstacle.GetComponent<MeshCollider>().enabled = true;
+                // new_obstacle.GetComponent<MeshCollider>().enabled = true;
                 new_obstacle.GetComponent<Renderer>().enabled = true;
                 new_obstacle.GetComponent<obstacle_script>().speed = 12.0f;
                 gen_new_spawn_delays(i);

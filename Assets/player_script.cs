@@ -127,14 +127,18 @@ public class player_script : MonoBehaviour
         } else if (collision.gameObject.tag == "obstacle") {
             // player gets a game over...
             GetComponent<Renderer>().material.color = Color.red;
+        }
+    }
+
+    void OnTriggerEnter(Collider collision) {
+        if (collision.gameObject.tag == "arch_end") {
+            panning_camera_timer = 0.0f;
+            is_panning_camera = false;
+            is_panning_camera_back = true;
         } else if (collision.gameObject.tag == "arch_trigger") {
             panning_camera_timer = 0.0f;
             is_panning_camera = true;
             is_panning_camera_back = false;
-        } else if (collision.gameObject.tag == "arch_end") {
-            panning_camera_timer = 0.0f;
-            is_panning_camera = false;
-            is_panning_camera_back = true;
         }
     }
 
@@ -142,7 +146,6 @@ public class player_script : MonoBehaviour
         panning_camera_timer += Time.deltaTime;
 
         if (panning_camera_timer > panning_camera_timer_end) {
-            Debug.Log("ended");
             is_panning_camera = false;
             is_panning_camera_back = false;
             panning_camera_timer = 0.0f;

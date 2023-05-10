@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MATBEND
-  m_Shader: {fileID: -6465566751694194690, guid: 64db7e5cfa330440a82127b8d6259061, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: e349d66d6934040b9b0a4de926057fae, type: 3}
   m_ValidKeywords:
   - _DISABLE_SSR_TRANSPARENT
   m_InvalidKeywords: []
