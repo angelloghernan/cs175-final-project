@@ -13,7 +13,7 @@ public class player_modeled : MonoBehaviour
     private float x = -4.502f;
     private float y = 0.0f;
     private float new_x = -4.502f;
-    public float jump_force = 2.5f;
+    public float jump_force = 4f;
 
     private bool moving = false;
     private bool jumping = false;
@@ -48,7 +48,7 @@ public class player_modeled : MonoBehaviour
         }
 
         // handle jumping
-        if (char_controller.isGrounded) {
+        if (char_controller.isGrounded || y == 0.0f) {
             if (jumping) {
                 animator.Play("landing2");
                 jumping = false;
