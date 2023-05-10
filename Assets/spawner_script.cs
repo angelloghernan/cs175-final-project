@@ -13,8 +13,8 @@ public class spawner_script : MonoBehaviour
     public float spawn_delay_max = 100.0f;
     private float x_curve = 0.0f;
     private float y_curve = 0.0f;
-    public float x_curve_delta = 0.00000f;
-    public float y_curve_delta = 0.00000f;
+    public float x_curve_delta = 0.00001f;
+    public float y_curve_delta = 0.00001f;
     private long curve_frame = 0;
     
     void gen_new_spawn_delays(int i) {

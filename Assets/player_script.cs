@@ -27,7 +27,7 @@ public class player_script : MonoBehaviour
     private Vector3 panning_camera_start;
     private Vector3 panning_camera_end;
     private float panning_camera_timer = 0.0f;
-    private float panning_camera_timer_end = 0.25f;
+    private float panning_camera_timer_end = 0.75f;
     private bool is_panning_camera = false;
     private bool is_panning_camera_back = false;
     private float camera_x_rotation = 20;
