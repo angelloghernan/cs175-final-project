@@ -152,6 +152,32 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1102 &-5983786132106445924
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: h_jump2_kickflip
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: -897190310568313569, guid: 6a72a39b0d5ee7e47a01922a2a8673fb, type: 3}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1107 &-3454069076378877614
 AnimatorStateMachine:
   serializedVersion: 6
@@ -191,6 +217,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 4081892931216006210}
     m_Position: {x: 561.62885, y: 290.67618, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -5983786132106445924}
+    m_Position: {x: 596.62885, y: 355.67618, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
