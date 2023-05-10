@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ground
   - obstacle
+  - arch_trigger
   layers:
   - Default
   - TransparentFX

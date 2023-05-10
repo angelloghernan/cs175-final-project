@@ -12,6 +12,7 @@ public class player_script : MonoBehaviour
 
 
     Rigidbody rb;
+    public Camera main_camera;
     BoxCollider box_collider;
     public bool is_jumping = false;
     public bool is_fast_falling = false;
@@ -23,9 +24,22 @@ public class player_script : MonoBehaviour
     private float duck_timer = 0.0f;
     private float time_to_reach_end = 0.25f;
 
+    private Vector3 panning_camera_start;
+    private Vector3 panning_camera_end;
+    private float panning_camera_timer = 0.0f;
+    private float panning_camera_timer_end = 0.25f;
+    private bool is_panning_camera = false;
+    private bool is_panning_camera_back = false;
+    private float camera_x_rotation = 20;
+
     // Start is called before the first frame update
     void Start()
     {
+        panning_camera_start = main_camera.transform.position;
+        panning_camera_end = new Vector3(main_camera.transform.position.x,
+                                         transform.position.y,
+                                         main_camera.transform.position.z);
+
         rb = GetComponent<Rigidbody>();
         box_collider = GetComponent<BoxCollider>();
         is_jumping = false;
@@ -49,6 +63,8 @@ public class player_script : MonoBehaviour
     {
         move_timer += Time.deltaTime;
         duck_timer += Time.deltaTime;
+
+        update_camera();
 
         if (moving && move_timer >= time_to_reach_end) {
             moving = false;
@@ -102,14 +118,54 @@ public class player_script : MonoBehaviour
 
     }
 
+
     void OnCollisionEnter(Collision collision) {
         // Enable jumping when the player touches the ground
+        Debug.Log("Collision");
         if (collision.gameObject.tag == "ground") {
             is_jumping = false;
             is_fast_falling = false;
         } else if (collision.gameObject.tag == "obstacle") {
             // player gets a game over...
             GetComponent<Renderer>().material.color = Color.red;
+        } else if (collision.gameObject.tag == "arch_trigger") {
+            panning_camera_timer = 0.0f;
+            is_panning_camera = true;
+            is_panning_camera_back = false;
+            Debug.Log("collision with arch trigger");
+        }
+    }
+
+    void update_camera() {
+        panning_camera_timer += Time.deltaTime;
+
+        if (is_panning_camera && panning_camera_timer > panning_camera_timer_end) {
+            Debug.Log("ended");
+            is_panning_camera = false;
+            is_panning_camera_back = true;
+            panning_camera_timer = 0.0f;
+        }
+
+        if (is_panning_camera_back && panning_camera_timer > panning_camera_timer_end) {
+            is_panning_camera_back = false;
+            is_panning_camera = false;
+            panning_camera_timer = 0.0f;
+        }
+
+        if (is_panning_camera) {
+            float t = panning_camera_timer / panning_camera_timer_end;
+            main_camera.transform.position = Vector3.Lerp(panning_camera_start, 
+                                                          panning_camera_end,
+                                                          t);
+            float angle = Mathf.LerpAngle(camera_x_rotation, 0.0f, t);
+            main_camera.transform.eulerAngles = new Vector3(angle, 0.0f, 0.0f);
+        } else if (is_panning_camera_back) {
+            float t = panning_camera_timer / panning_camera_timer_end;
+            main_camera.transform.position = Vector3.Lerp(panning_camera_end, 
+                                                          panning_camera_start,
+                                                          t);
+            float angle = Mathf.LerpAngle(0.0f, camera_x_rotation, t);
+            main_camera.transform.eulerAngles = new Vector3(angle, 0.0f, 0.0f);
         }
     }
 }
