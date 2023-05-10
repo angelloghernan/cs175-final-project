@@ -37,6 +37,11 @@ public class player_modeled : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R)) {
+            Time.timeScale = 1;
+            y = -10.0f;
+            animator.Play("run");
+        }
         if (!rolling && Input.GetKeyDown(KeyCode.LeftArrow) && square > 0) {
             moving = true;
             animator.Play("dodgeLeft");

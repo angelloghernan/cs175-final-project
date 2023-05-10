@@ -77,6 +77,7 @@ public class spawner_script : MonoBehaviour
                 new_obstacle.GetComponent<MeshCollider>().enabled = true;
                 new_obstacle.GetComponent<Renderer>().enabled = true;
                 new_obstacle.GetComponent<obstacle_script>().speed = 12.0f;
+                new_obstacle.GetComponent<obstacle_script>().is_clone = true;
                 gen_new_spawn_delays(i);
             }
         }
