@@ -5,13 +5,14 @@ using UnityEngine;
 public class player_modeled : MonoBehaviour
 {
     private CharacterController char_controller;
+    private BoxCollider box_collider;
     private Animator animator;
     private Rigidbody rb;
     public float speed = 10.0f;
     // can be 0, 1, or 2 depending on the lane the player is in
     private int square = 1;
     private float x = -4.502f;
-    private float y = 0.0f;
+    private float y = -10.0f;
     private float new_x = -4.502f;
     public float jump_force = 4f;
 
@@ -30,6 +31,7 @@ public class player_modeled : MonoBehaviour
         char_controller.Move(new Vector3(x, 0.0f, transform.position.z));
         collision_height = char_controller.height;
         center_y = char_controller.center.y;
+        box_collider = GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
@@ -79,17 +81,32 @@ public class player_modeled : MonoBehaviour
             roll_timer = 0.0f;
             char_controller.center = Vector3.up * center_y;
             char_controller.height = collision_height;
+            if (rolling) {
+                box_collider.size = new Vector3(box_collider.size.x,
+                                                box_collider.size.y * 4.0f,
+                                                box_collider.size.z);
+            }
             rolling = false;
         }
 
         if (!rolling && Input.GetKeyDown(KeyCode.DownArrow)) {
-            roll_timer = 0.2f;
+            roll_timer = 0.3f;
             y -= 10.0f;
             char_controller.center = Vector3.up * (center_y / 2);
             char_controller.height = collision_height / 2;
             animator.CrossFadeInFixedTime("roll", 0.1f);
             rolling = true;
             jumping = false;
+            box_collider.size = new Vector3(box_collider.size.x,
+                                            box_collider.size.y / 4.0f,
+                                            box_collider.size.z);
+        }
+    }
+
+    void OnTriggerEnter(Collider collision) {
+        if (collision.gameObject.tag == "obstacle") {
+            Debug.Log("hit by obstacle");
+            Time.timeScale = 0;
         }
     }
 }
