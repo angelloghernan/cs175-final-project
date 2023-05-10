@@ -6,9 +6,9 @@ public class spawner_script : MonoBehaviour
 {
     public List<GameObject> game_objects;
     public List<GameObject> other_objects;
-    private List<float> spawn_delays = new List<float> {1.0f, 1.0f, 1.0f, 1.0f};
-    private List<float> spawn_timers = new List<float> {0.0f, 0.0f, 0.0f, 0.0f};
-    private List<float> object_y_rotation = new List<float> {270.0f, 270.0f, 270.0f, 0.0f};
+    private List<float> spawn_delays = new List<float> {.45f, .45f, .45f, 1.0f, .45f, .45f, .45f, 0.45f, 0.45f, 4.5f};
+    private List<float> spawn_timers = new List<float> {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+    private List<float> object_y_rotation = new List<float> {270.0f, 270.0f, 270.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
     private List<Renderer> object_renderers = new List<Renderer>();
     public float spawn_delay_max = 100.0f;
     private float x_curve = 0.0f;
